@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:jomhack/pages/nav.dart';
 import 'package:jomhack/services/auth_service.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
@@ -26,7 +25,7 @@ class MyApp extends StatelessWidget {
           return const MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'RHB JomHack',
-            home: Nav(),
+            home: AuthWrapper(),
           );
         });
       },

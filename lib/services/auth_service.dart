@@ -17,7 +17,34 @@ class AuthService with ChangeNotifier {
     init();
   }
 
-  init() async {}
+  Future<void> init() async {
+    try {
+      String? token = await _storage.read(key: 'token');
+
+      if (token != null) {
+        String url = '${baseURL}user/';
+
+        Response response = await get(
+          Uri.parse(url),
+          headers: headersWithToken(token),
+        );
+
+        if (response.statusCode == 200) {
+          Map<String, dynamic> data = jsonDecode(response.body);
+
+          XUser u = XUser.fromMap(data);
+          user = u;
+          notifyListeners();
+        } else if (response.statusCode == 401) {
+          await _storage.delete(key: 'token');
+          user = null;
+          notifyListeners();
+        }
+      }
+    } catch (e) {
+      log(e.toString());
+    }
+  }
 
   Future<String?> login({
     required String email,

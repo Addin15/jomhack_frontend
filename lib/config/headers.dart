@@ -6,5 +6,5 @@ headersWithoutToken() => {
 headersWithToken(String token) => {
       'Accept': 'application/json',
       'Content-type': 'application/json',
-      'Authorization': 'Bearer $token',
+      'Authorization': 'Token $token',
     };

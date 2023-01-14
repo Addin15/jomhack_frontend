@@ -4,6 +4,7 @@ import 'package:jomhack/pages/calculator/calculator.dart';
 import 'package:jomhack/pages/news/news.dart';
 import 'package:jomhack/pages/profile/profile.dart';
 import 'package:jomhack/pages/recommendation/recommendation.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
 import '../themes/colors.dart';
@@ -47,16 +48,29 @@ class _NavState extends State<Nav> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedPage,
+        selectedItemColor: AppColor.tertiary,
         type: BottomNavigationBarType.fixed,
-        items: [
+        items: const [
           BottomNavigationBarItem(
-              icon: Icon(Ionicons.home_outline), label: 'For You'),
+            icon: Icon(Ionicons.home_outline),
+            activeIcon: Icon(Ionicons.home),
+            label: 'For You',
+          ),
           BottomNavigationBarItem(
-              icon: Icon(Ionicons.newspaper_outline), label: 'News'),
+            icon: Icon(Ionicons.newspaper_outline),
+            activeIcon: Icon(Ionicons.newspaper),
+            label: 'News',
+          ),
           BottomNavigationBarItem(
-              icon: Icon(Ionicons.calculator_outline), label: 'Calculator'),
+            icon: Icon(Ionicons.calculator_outline),
+            activeIcon: Icon(Ionicons.calculator),
+            label: 'Calculator',
+          ),
           BottomNavigationBarItem(
-              icon: Icon(Ionicons.person_outline), label: 'Profile'),
+            icon: Icon(Ionicons.person_outline),
+            activeIcon: Icon(Ionicons.person),
+            label: 'Profile',
+          ),
         ],
         onTap: (index) {
           setState(() {
