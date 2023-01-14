@@ -43,6 +43,8 @@ dependencies:
   ionicons: ^0.2.1
   flutter_spinkit: ^5.1.0
   url_launcher: ^6.1.7
+  syncfusion_flutter_gauges: ^20.4.43
+  syncfusion_flutter_sliders: ^20.4.43
 
 dev_dependencies:
   flutter_test:
