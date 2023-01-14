@@ -27,13 +27,26 @@ class _NavState extends State<Nav> {
         backgroundColor: AppColor.background,
         elevation: 0,
         centerTitle: true,
-        title: Text(
-          'GetInsured',
-          style: TextStyle(
-            fontSize: 14.sp,
-            fontWeight: FontWeight.bold,
-            color: AppColor.tertiary,
-          ),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'Get',
+              style: TextStyle(
+                fontSize: 14.sp,
+                fontWeight: FontWeight.w400,
+                color: AppColor.tertiary,
+              ),
+            ),
+            Text(
+              'Insured',
+              style: TextStyle(
+                fontSize: 14.sp,
+                fontWeight: FontWeight.bold,
+                color: AppColor.tertiary,
+              ),
+            ),
+          ],
         ),
       ),
       body: PageView(

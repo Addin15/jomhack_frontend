@@ -76,37 +76,30 @@ class AuthService with ChangeNotifier {
     }
   }
 
-
-  Future<String?> edit({
-    required String email,
+  Future<bool> edit({
     required String name,
-    required String password,
-
   }) async {
     try {
-      String url = '${baseURL}edit/';
-      Response response = await post(Uri.parse(url),
-          body: jsonEncode({
-            'email': email,
-            'name': name,
-            'password': password,
-          }),
-          headers: headersWithoutToken());
+      String? token = await _storage.read(key: 'token');
+      if (token != null) {
+        String url = '${baseURL}edit/';
+        Response response = await post(Uri.parse(url),
+            body: jsonEncode({
+              'name': name,
+            }),
+            headers: headersWithToken(token));
 
-      if (response.statusCode == 200) {
-        Map<String, dynamic> data = jsonDecode(response.body);
-
-        XUser u = XUser.fromMap(data['user']);
-        user = u;
-        await _storage.write(key: 'token', value: data['token']);
-        notifyListeners();
-        return null;
+        if (response.statusCode == 200) {
+          user!.name = name;
+          notifyListeners();
+          return true;
+        }
       }
 
-      return 'User not found';
+      return false;
     } catch (e) {
       log(e.toString());
-      return 'Error while editing';
+      return false;
     }
   }
 

@@ -13,7 +13,6 @@ class Calculator extends StatefulWidget {
 }
 
 class _CalculatorState extends State<Calculator> {
-
   final TextEditingController _controller = TextEditingController();
   final TextEditingController _returnRateController = TextEditingController();
   final TextEditingController _timePeriodController = TextEditingController();
@@ -27,7 +26,6 @@ class _CalculatorState extends State<Calculator> {
   late double _result;
   late double i;
 
-
   @override
   void initState() {
     _controller.text = _monthlyInvestment.toString();
@@ -38,8 +36,8 @@ class _CalculatorState extends State<Calculator> {
     i = (_expectedReturnRate) / (12 * 100);
 
     _result = (_monthlyInvestment *
-        (((pow((1 + i), (_timePeriod * 12))) - 1) / i) *
-        (1 + i)) -
+            (((pow((1 + i), (_timePeriod * 12))) - 1) / i) *
+            (1 + i)) -
         _investedAmount;
 
     _totalInvestment = _investedAmount + _result;
@@ -49,6 +47,7 @@ class _CalculatorState extends State<Calculator> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
+      physics: const BouncingScrollPhysics(),
       child: Column(
         children: [
           Padding(
@@ -63,7 +62,6 @@ class _CalculatorState extends State<Calculator> {
                     color: const Color(0xFF98a4ff),
                   ),
                 ),
-
                 const SizedBox(width: 3),
                 const Text('Invested amount'),
                 const SizedBox(width: 30),
@@ -110,32 +108,28 @@ class _CalculatorState extends State<Calculator> {
                       color: const Color(0xFF5367ff),
                       startWidth: 0.35,
                       endWidth: 0.35),
-                ], annotations: <GaugeAnnotation>[
-
-                GaugeAnnotation(
-                    widget: Row(
-                      children: <Widget>[
+                ],
+                annotations: <GaugeAnnotation>[
+                  GaugeAnnotation(
+                      widget: Row(
+                        children: <Widget>[
                           Text(
-                        'RM '+_totalInvestment.toStringAsFixed(0),
+                            'RM ' + _totalInvestment.toStringAsFixed(0),
                             style: TextStyle(
                                 fontSize: 16,
                                 fontFamily: 'Times',
                                 fontWeight: FontWeight.bold,
                                 color: const Color(0xFF00A8B5)),
                           ),
-
-                      ],
-                    ),
-                    positionFactor: 1.2,
-                    angle: 0)
-
-
-              ],
+                        ],
+                      ),
+                      positionFactor: 1.2,
+                      angle: 0)
+                ],
               ),
             ],
           ),
           const SizedBox(height: 50),
-
           Column(
             children: <Widget>[
               SizedBox(
@@ -160,7 +154,7 @@ class _CalculatorState extends State<Calculator> {
                             filled: true,
                             contentPadding: EdgeInsets.only(left: 30),
                             border:
-                            OutlineInputBorder(borderSide: BorderSide.none),
+                                OutlineInputBorder(borderSide: BorderSide.none),
                           ),
                           style: const TextStyle(
                               fontSize: 17,
@@ -197,9 +191,9 @@ class _CalculatorState extends State<Calculator> {
                               (_monthlyInvestment * 12) * _timePeriod;
                           i = (_expectedReturnRate) / (12 * 100);
                           _result = (_monthlyInvestment *
-                              (((pow((1 + i), (_timePeriod * 12))) - 1) /
-                                  i) *
-                              (1 + i)) -
+                                  (((pow((1 + i), (_timePeriod * 12))) - 1) /
+                                      i) *
+                                  (1 + i)) -
                               _investedAmount;
                           _totalInvestment = _investedAmount + _result;
                         });
@@ -228,7 +222,7 @@ class _CalculatorState extends State<Calculator> {
                             filled: true,
                             contentPadding: EdgeInsets.only(left: 30),
                             border:
-                            OutlineInputBorder(borderSide: BorderSide.none),
+                                OutlineInputBorder(borderSide: BorderSide.none),
                           ),
                           style: const TextStyle(
                               fontSize: 17,
@@ -263,9 +257,9 @@ class _CalculatorState extends State<Calculator> {
                               _expectedReturnRate.toStringAsFixed(0);
                           i = (_expectedReturnRate) / (12 * 100);
                           _result = (_monthlyInvestment *
-                              (((pow((1 + i), (_timePeriod * 12))) - 1) /
-                                  i) *
-                              (1 + i)) -
+                                  (((pow((1 + i), (_timePeriod * 12))) - 1) /
+                                      i) *
+                                  (1 + i)) -
                               _investedAmount;
                           _totalInvestment = _investedAmount + _result;
                         });
@@ -294,7 +288,7 @@ class _CalculatorState extends State<Calculator> {
                             filled: true,
                             contentPadding: EdgeInsets.only(left: 30),
                             border:
-                            OutlineInputBorder(borderSide: BorderSide.none),
+                                OutlineInputBorder(borderSide: BorderSide.none),
                           ),
                           style: const TextStyle(
                               fontSize: 17,
@@ -331,9 +325,9 @@ class _CalculatorState extends State<Calculator> {
                               (_monthlyInvestment * 12) * _timePeriod;
                           i = (_expectedReturnRate) / (12 * 100);
                           _result = (_monthlyInvestment *
-                              (((pow((1 + i), (_timePeriod * 12))) - 1) /
-                                  i) *
-                              (1 + i)) -
+                                  (((pow((1 + i), (_timePeriod * 12))) - 1) /
+                                      i) *
+                                  (1 + i)) -
                               _investedAmount;
                           _totalInvestment = _investedAmount + _result;
                         });
@@ -341,8 +335,7 @@ class _CalculatorState extends State<Calculator> {
                 ),
               ),
               const SizedBox(height: 50),
-              Text('In '+_timePeriod.toStringAsFixed(0)+' Years'),
-
+              Text('In ' + _timePeriod.toStringAsFixed(0) + ' Years'),
               SizedBox(
                 width: 350,
                 child: Padding(
@@ -381,7 +374,6 @@ class _CalculatorState extends State<Calculator> {
                   ),
                 ),
               ),
-
               SizedBox(
                 width: 350,
                 child: Padding(
