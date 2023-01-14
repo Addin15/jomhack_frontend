@@ -76,6 +76,40 @@ class AuthService with ChangeNotifier {
     }
   }
 
+
+  Future<String?> edit({
+    required String email,
+    required String name,
+    required String password,
+
+  }) async {
+    try {
+      String url = '${baseURL}edit/';
+      Response response = await post(Uri.parse(url),
+          body: jsonEncode({
+            'email': email,
+            'name': name,
+            'password': password,
+          }),
+          headers: headersWithoutToken());
+
+      if (response.statusCode == 200) {
+        Map<String, dynamic> data = jsonDecode(response.body);
+
+        XUser u = XUser.fromMap(data['user']);
+        user = u;
+        await _storage.write(key: 'token', value: data['token']);
+        notifyListeners();
+        return null;
+      }
+
+      return 'User not found';
+    } catch (e) {
+      log(e.toString());
+      return 'Error while editing';
+    }
+  }
+
   Future<String?> register({
     required String name,
     required String email,
