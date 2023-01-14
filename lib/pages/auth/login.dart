@@ -59,6 +59,7 @@ class _LoginState extends State<Login> {
                     controller: _passwordController,
                     focusNode: _passwordFocus,
                     hintText: 'Password',
+                    isObscured: true,
                     validator: (text) {
                       if (text == null || text.isEmpty || text.length < 6) {
                         return 'Password should be at least 6 characters';
@@ -88,6 +89,7 @@ class _LoginState extends State<Login> {
                         child: customTextButton(
                           label: 'Login',
                           onPressed: () async {
+                            FocusScope.of(context).unfocus();
                             auth.login(
                               email: _emailController.text,
                               password: _passwordController.text,

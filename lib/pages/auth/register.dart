@@ -72,6 +72,7 @@ class _RegisterState extends State<Register> {
                     controller: _passwordController,
                     focusNode: _passwordFocus,
                     hintText: 'Password',
+                    isObscured: true,
                     validator: (text) {
                       if (text == null || text.isEmpty || text.length < 6) {
                         return 'Password should be at least 6 characters';
@@ -85,6 +86,7 @@ class _RegisterState extends State<Register> {
                     controller: _confirmPasswordController,
                     focusNode: _confirmPasswordFocus,
                     hintText: 'Confirm Password',
+                    isObscured: true,
                     validator: (text) =>
                         text.toString() == _passwordController.text
                             ? null
@@ -108,6 +110,7 @@ class _RegisterState extends State<Register> {
                         child: customTextButton(
                           label: 'Register',
                           onPressed: () async {
+                            FocusScope.of(context).unfocus();
                             String? res = await auth.register(
                               name: _nameController.text,
                               email: _emailController.text,

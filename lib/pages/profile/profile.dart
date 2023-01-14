@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:jomhack/services/auth_service.dart';
+import 'package:jomhack/templates/custom_widgets.dart';
+import 'package:provider/provider.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -10,6 +13,14 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Center(
+      child: customTextButton(
+        label: 'Logout',
+        onPressed: () {
+          AuthService auth = Provider.of(context, listen: false);
+          auth.logout();
+        },
+      ),
+    );
   }
 }

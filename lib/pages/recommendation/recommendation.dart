@@ -3,6 +3,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:jomhack/models/plan.dart';
 import 'package:jomhack/pages/recommendation/all_plans.dart';
+import 'package:jomhack/pages/recommendation/view_plan.dart';
 import 'package:jomhack/services/api_service.dart';
 import 'package:sizer/sizer.dart';
 
@@ -56,22 +57,19 @@ class _RecommendationState extends State<Recommendation>
                       ),
                     ),
                     SizedBox(
-                      width: 12.sp,
-                      height: 12.sp,
-                      child: IconButton(
+                      height: 25.sp,
+                      child: TextButton(
                         onPressed: () {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => const AllPlans()));
                         },
-                        alignment: Alignment.center,
-                        padding: EdgeInsets.zero,
-                        iconSize: 12.sp,
-                        icon: Icon(
-                          Ionicons.reorder_two_outline,
-                          size: 16.sp,
-                          color: AppColor.secondary,
+                        child: const Text(
+                          'Browse',
+                          style: TextStyle(
+                            color: AppColor.secondary,
+                          ),
                         ),
                       ),
                     ),
@@ -87,165 +85,181 @@ class _RecommendationState extends State<Recommendation>
                           physics: const BouncingScrollPhysics(),
                           itemBuilder: (context, index) {
                             PlanModel plan = plans[index];
-                            return Card(
-                              elevation: 3,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(5.sp)),
-                              child: Container(
-                                height: 12.h,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5.sp),
-                                  color: AppColor.primary,
-                                ),
-                                child: Row(
-                                  children: [
-                                    Container(
-                                      width: 20.w,
-                                      height: 12.h,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.only(
-                                          topLeft: Radius.circular(5.sp),
-                                          bottomLeft: Radius.circular(5.sp),
+                            return GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => ViewPlan(plan: plan),
+                                  ),
+                                );
+                              },
+                              child: Card(
+                                elevation: 3,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(5.sp)),
+                                child: Container(
+                                  height: 12.h,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5.sp),
+                                    color: AppColor.primary,
+                                  ),
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                        width: 20.w,
+                                        height: 12.h,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(5.sp),
+                                            bottomLeft: Radius.circular(5.sp),
+                                          ),
+                                        ),
+                                        child: ClipRRect(
+                                          borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(5.sp),
+                                            bottomLeft: Radius.circular(5.sp),
+                                          ),
+                                          child: Image.network(
+                                            plan.provider!.logo.toString(),
+                                            fit: BoxFit.fitHeight,
+                                          ),
                                         ),
                                       ),
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.only(
-                                          topLeft: Radius.circular(5.sp),
-                                          bottomLeft: Radius.circular(5.sp),
+                                      Container(
+                                        padding: EdgeInsets.symmetric(
+                                          horizontal: 2.w,
+                                          vertical: 1.h,
                                         ),
-                                        child: Image.network(
-                                          plan.provider!.logo.toString(),
-                                          fit: BoxFit.fitHeight,
+                                        width: 70.w,
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              plan.name.toString(),
+                                              maxLines: 1,
+                                              style: TextStyle(
+                                                fontSize: 12.sp,
+                                                color: AppColor.tertiary,
+                                                fontWeight: FontWeight.w700,
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                            ),
+                                            SizedBox(height: 1.h),
+                                            Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(3.sp),
+                                                color: AppColor.background,
+                                              ),
+                                              padding: EdgeInsets.symmetric(
+                                                horizontal: 2.w,
+                                              ),
+                                              child: Row(
+                                                children: [
+                                                  SizedBox(
+                                                    width: 15.w,
+                                                    child: Text(
+                                                      'Provider',
+                                                      style: TextStyle(
+                                                        fontSize: 10.sp,
+                                                        color:
+                                                            AppColor.secondary,
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    height: 3.h,
+                                                    child:
+                                                        const VerticalDivider(
+                                                      width: 1,
+                                                      thickness: 1,
+                                                      color: AppColor.primary,
+                                                    ),
+                                                  ),
+                                                  Expanded(
+                                                    child: Text(
+                                                      plan.provider!.name
+                                                          .toString(),
+                                                      textAlign: TextAlign.end,
+                                                      style: TextStyle(
+                                                        fontSize: 10.sp,
+                                                        color:
+                                                            AppColor.secondary,
+                                                        fontWeight:
+                                                            FontWeight.w700,
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            SizedBox(height: 0.5.h),
+                                            Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(3.sp),
+                                                color: AppColor.background,
+                                              ),
+                                              padding: EdgeInsets.symmetric(
+                                                horizontal: 2.w,
+                                              ),
+                                              child: Row(
+                                                children: [
+                                                  SizedBox(
+                                                    width: 15.w,
+                                                    child: Text(
+                                                      'Category',
+                                                      style: TextStyle(
+                                                        fontSize: 10.sp,
+                                                        color:
+                                                            AppColor.secondary,
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    height: 3.h,
+                                                    child:
+                                                        const VerticalDivider(
+                                                      width: 1,
+                                                      thickness: 1,
+                                                      color: AppColor.primary,
+                                                    ),
+                                                  ),
+                                                  Expanded(
+                                                    child: Text(
+                                                      plan.category.toString(),
+                                                      textAlign: TextAlign.end,
+                                                      style: TextStyle(
+                                                        fontSize: 10.sp,
+                                                        color:
+                                                            AppColor.secondary,
+                                                        fontWeight:
+                                                            FontWeight.w700,
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ),
-                                    ),
-                                    Container(
-                                      padding: EdgeInsets.symmetric(
-                                        horizontal: 2.w,
-                                        vertical: 1.h,
-                                      ),
-                                      width: 70.w,
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            plan.name.toString(),
-                                            maxLines: 1,
-                                            style: TextStyle(
-                                              fontSize: 12.sp,
-                                              color: AppColor.tertiary,
-                                              fontWeight: FontWeight.w700,
-                                              overflow: TextOverflow.ellipsis,
-                                            ),
-                                          ),
-                                          SizedBox(height: 1.h),
-                                          Container(
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(3.sp),
-                                              color: AppColor.background,
-                                            ),
-                                            padding: EdgeInsets.symmetric(
-                                              horizontal: 2.w,
-                                            ),
-                                            child: Row(
-                                              children: [
-                                                SizedBox(
-                                                  width: 15.w,
-                                                  child: Text(
-                                                    'Provider',
-                                                    style: TextStyle(
-                                                      fontSize: 10.sp,
-                                                      color: AppColor.secondary,
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                    ),
-                                                  ),
-                                                ),
-                                                SizedBox(
-                                                  height: 3.h,
-                                                  child: const VerticalDivider(
-                                                    width: 1,
-                                                    thickness: 1,
-                                                    color: AppColor.primary,
-                                                  ),
-                                                ),
-                                                Expanded(
-                                                  child: Text(
-                                                    plan.provider!.name
-                                                        .toString(),
-                                                    textAlign: TextAlign.end,
-                                                    style: TextStyle(
-                                                      fontSize: 10.sp,
-                                                      color: AppColor.secondary,
-                                                      fontWeight:
-                                                          FontWeight.w700,
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          SizedBox(height: 0.5.h),
-                                          Container(
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(3.sp),
-                                              color: AppColor.background,
-                                            ),
-                                            padding: EdgeInsets.symmetric(
-                                              horizontal: 2.w,
-                                            ),
-                                            child: Row(
-                                              children: [
-                                                SizedBox(
-                                                  width: 15.w,
-                                                  child: Text(
-                                                    'Category',
-                                                    style: TextStyle(
-                                                      fontSize: 10.sp,
-                                                      color: AppColor.secondary,
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                    ),
-                                                  ),
-                                                ),
-                                                SizedBox(
-                                                  height: 3.h,
-                                                  child: const VerticalDivider(
-                                                    width: 1,
-                                                    thickness: 1,
-                                                    color: AppColor.primary,
-                                                  ),
-                                                ),
-                                                Expanded(
-                                                  child: Text(
-                                                    plan.category.toString(),
-                                                    textAlign: TextAlign.end,
-                                                    style: TextStyle(
-                                                      fontSize: 10.sp,
-                                                      color: AppColor.secondary,
-                                                      fontWeight:
-                                                          FontWeight.w700,
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                               ),
                             );

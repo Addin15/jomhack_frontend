@@ -28,7 +28,7 @@ class _NavState extends State<Nav> {
         elevation: 0,
         centerTitle: true,
         title: Text(
-          'InsureME',
+          'GetInsured',
           style: TextStyle(
             fontSize: 14.sp,
             fontWeight: FontWeight.bold,

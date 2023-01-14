@@ -108,10 +108,7 @@ class AuthService with ChangeNotifier {
     }
   }
 
-  Future<void> logout({
-    required String email,
-    required String password,
-  }) async {
+  Future<void> logout() async {
     try {
       String? token = await _storage.read(key: 'token');
       if (token != null) {
