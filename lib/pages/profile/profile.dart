@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:jomhack/config/api.dart';
+import 'package:jomhack/pages/assestment_page.dart';
 import 'package:jomhack/pages/profile/edit_profile.dart';
 import 'package:jomhack/themes/colors.dart';
 import 'package:provider/provider.dart';
@@ -29,10 +31,12 @@ class _ProfileState extends State<Profile> {
           CircleAvatar(
             radius: 35.sp,
             backgroundColor: AppColor.tertiary,
-            child: Icon(
-              Ionicons.person,
-              size: 35.sp,
-            ),
+            child: user.image == null
+                ? Icon(
+                    Ionicons.person,
+                    size: 35.sp,
+                  )
+                : ClipOval(child: Image.network('$baseURLMedia${user.image}')),
           ),
           SizedBox(height: 1.5.h),
           Text(
@@ -62,7 +66,30 @@ class _ProfileState extends State<Profile> {
               icon: Ionicons.document_text_outline,
               label: 'Assestment',
               color: Colors.orange,
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  CupertinoPageRoute(
+                    builder: (context) => Scaffold(
+                      appBar: AppBar(
+                        leading: const BackButton(color: AppColor.tertiary),
+                        elevation: 0,
+                        backgroundColor: AppColor.background,
+                        centerTitle: true,
+                        title: Text(
+                          'Assestment',
+                          style: TextStyle(
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.bold,
+                            color: AppColor.tertiary,
+                          ),
+                        ),
+                      ),
+                      body: const AssestmentPage(),
+                    ),
+                  ),
+                );
+              },
             ),
           ]),
           SizedBox(height: 2.h),

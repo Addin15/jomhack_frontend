@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart';
@@ -96,36 +97,4 @@ class APIService {
       return [];
     }
   }
-
-  static Future<Map<String, dynamic>> getUserData() async {
-    try {
-      String? token = await _storage.read(key: 'token');
-
-      if (token != null) {
-        String url = '${baseURL}user/';
-
-        Response response = await get(
-          Uri.parse(url),
-          headers: headersWithToken(token),
-        );
-
-        if (response.statusCode == 200) {
-          return jsonDecode(response.body);
-        }
-      }
-
-      return {
-        'a': 1,
-        'b': 2,
-      };
-    } catch (e) {
-      log(e.toString());
-      return  {
-        'a': 1,
-        'b': 2,
-      };
-    }
-  }
-
-
 }

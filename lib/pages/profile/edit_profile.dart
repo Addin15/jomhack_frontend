@@ -1,5 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:ionicons/ionicons.dart';
+import 'package:jomhack/config/api.dart';
 import 'package:jomhack/models/user.dart';
 import 'package:jomhack/services/api_service.dart';
 import 'package:jomhack/services/auth_service.dart';
@@ -27,6 +32,8 @@ class _EditProfileState extends State<EditProfile> {
 
   bool unchanged = true;
   bool isSaving = false;
+
+  XFile? newImage;
 
   @override
   void initState() {
@@ -60,6 +67,35 @@ class _EditProfileState extends State<EditProfile> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  GestureDetector(
+                    onTap: () async {
+                      ImagePicker imagePicker = ImagePicker();
+                      XFile? image = await imagePicker.pickImage(
+                          source: ImageSource.gallery);
+
+                      if (image != null) {
+                        setState(() {
+                          newImage = image;
+                          unchanged = false;
+                        });
+                      }
+                    },
+                    child: CircleAvatar(
+                      radius: 40.sp,
+                      child: widget.user.image == null
+                          ? Icon(
+                              Ionicons.person,
+                              size: 35.sp,
+                            )
+                          : ClipOval(
+                              child: newImage != null
+                                  ? Image.file(File(newImage!.path))
+                                  : Image.network(baseURLMedia +
+                                      widget.user.image.toString()),
+                            ),
+                    ),
+                  ),
+                  SizedBox(height: 1.5.h),
                   customTextFormField(
                     controller: _nameController,
                     focusNode: _nameFocus,
@@ -88,8 +124,11 @@ class _EditProfileState extends State<EditProfile> {
 
                             AuthService auth =
                                 Provider.of(context, listen: false);
-                            bool res =
-                                await auth.edit(name: _nameController.text);
+                            bool res = await auth.edit(
+                                image: newImage == null
+                                    ? null
+                                    : File(newImage!.path),
+                                name: _nameController.text);
 
                             if (res) {
                               setState(() {

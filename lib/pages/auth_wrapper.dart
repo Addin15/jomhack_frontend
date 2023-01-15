@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:jomhack/models/user.dart';
 import 'package:jomhack/pages/auth/login.dart';
+import 'package:jomhack/pages/complete_profile.dart';
 import 'package:jomhack/services/auth_service.dart';
 import 'package:provider/provider.dart';
 
@@ -22,6 +23,8 @@ class _AuthWrapperState extends State<AuthWrapper> {
 
         if (user == null) {
           return const Login();
+        } else if (user.image == null || user.assestment == null) {
+          return const CompleteProfile();
         } else {
           return const Nav();
         }

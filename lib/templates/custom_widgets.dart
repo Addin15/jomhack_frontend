@@ -10,6 +10,7 @@ TextFormField customTextFormField({
   required String hintText,
   required String? Function(String?)? validator,
   bool isObscured = false,
+  TextInputType? inputType,
   EdgeInsetsGeometry? contentPadding,
   void Function(String)? onChanged,
 }) =>
@@ -17,6 +18,7 @@ TextFormField customTextFormField({
       controller: controller,
       focusNode: focusNode,
       obscureText: isObscured,
+      keyboardType: inputType ?? TextInputType.text,
       validator: validator,
       style: TextStyle(
         fontSize: 12.sp,

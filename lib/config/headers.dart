@@ -8,3 +8,9 @@ headersWithToken(String token) => {
       'Content-type': 'application/json',
       'Authorization': 'Token $token',
     };
+
+headersWithTokenForImage(String token) => {
+      'Accept': 'application/json',
+      'Content-type': 'application/json',
+      'Authorization': 'Token $token',
+    };

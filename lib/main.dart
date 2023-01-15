@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:jomhack/services/auth_service.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
-
 import 'pages/auth_wrapper.dart';
 
 void main() {
