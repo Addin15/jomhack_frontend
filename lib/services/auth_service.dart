@@ -46,7 +46,7 @@ class AuthService with ChangeNotifier {
         }
       }
     } catch (e) {
-      log(e.toString());
+      log('Init' + e.toString());
     }
   }
 
@@ -202,7 +202,7 @@ class AuthService with ChangeNotifier {
 
       return false;
     } catch (e) {
-      log(e.toString());
+      log('Auth' + e.toString());
       return false;
     }
   }

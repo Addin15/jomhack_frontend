@@ -25,10 +25,10 @@ class APIService {
         );
 
         if (response.statusCode == 200) {
-          List data = jsonDecode(response.body);
+          Map data = jsonDecode(response.body);
 
           List<PlanModel> plans =
-              data.map((e) => PlanModel.fromMap(e)).toList();
+              (data['plans'] as List).map((e) => PlanModel.fromMap(e)).toList();
 
           return plans;
         }
@@ -53,6 +53,8 @@ class APIService {
           headers: headersWithToken(token),
         );
 
+        log(response.body.toString());
+
         if (response.statusCode == 200) {
           List data = jsonDecode(response.body);
 
@@ -65,7 +67,7 @@ class APIService {
 
       return [];
     } catch (e) {
-      log(e.toString());
+      log('Plan' + e.toString());
       return [];
     }
   }
@@ -83,9 +85,10 @@ class APIService {
         );
 
         if (response.statusCode == 200) {
-          List data = jsonDecode(response.body);
+          Map data = jsonDecode(response.body);
 
-          List<NewsModel> news = data.map((e) => NewsModel.fromMap(e)).toList();
+          List<NewsModel> news =
+              (data['news'] as List).map((e) => NewsModel.fromMap(e)).toList();
 
           return news;
         }
@@ -93,7 +96,7 @@ class APIService {
 
       return [];
     } catch (e) {
-      log(e.toString());
+      log('News' + e.toString());
       return [];
     }
   }

@@ -77,8 +77,9 @@ class _RecommendationState extends State<Recommendation>
                 ),
                 SizedBox(height: 2.h),
                 plans.isEmpty
-                    ? const Center(
-                        child: Text('No plan available'),
+                    ? Container(
+                        alignment: Alignment.center,
+                        child: const Text('No plan available'),
                       )
                     : Expanded(
                         child: ListView.separated(

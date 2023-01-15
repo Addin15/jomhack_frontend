@@ -54,8 +54,9 @@ class _NewsState extends State<News> with AutomaticKeepAliveClientMixin {
                 ),
                 SizedBox(height: 2.h),
                 news.isEmpty
-                    ? const Center(
-                        child: Text('No plan available'),
+                    ? Container(
+                        alignment: Alignment.center,
+                        child: const Text('No news available'),
                       )
                     : Expanded(
                         child: ListView.separated(
