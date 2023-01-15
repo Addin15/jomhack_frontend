@@ -182,6 +182,14 @@ class _CompleteProfileState extends State<CompleteProfile>
                       });
                     },
             ),
+            SizedBox(height: 1.h),
+            customTextButton(
+              label: 'Logout',
+              backgroundColor: AppColor.tertiary,
+              onPressed: () {
+                auth.logout();
+              },
+            ),
           ],
         ),
       );

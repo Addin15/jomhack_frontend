@@ -85,7 +85,7 @@ class _ProfileState extends State<Profile> {
                           ),
                         ),
                       ),
-                      body: const AssestmentPage(),
+                      body: AssestmentPage(assestment: user.assestment),
                     ),
                   ),
                 );

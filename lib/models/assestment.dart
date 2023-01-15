@@ -1,6 +1,7 @@
 class Assestment {
   int? age;
-  String? jobDescription;
+  String? gender;
+  String? jobTitle;
   String? existingCondition;
   String? familyHistory;
   bool? smoker;
@@ -8,7 +9,8 @@ class Assestment {
 
   Assestment({
     this.age,
-    this.jobDescription,
+    this.gender,
+    this.jobTitle,
     this.existingCondition,
     this.familyHistory,
     this.smoker,
@@ -17,7 +19,8 @@ class Assestment {
 
   factory Assestment.fromMap(Map<String, dynamic> data) => Assestment(
       age: data['age'],
-      jobDescription: data['job_description'],
+      gender: data['gender'],
+      jobTitle: data['job_title'],
       existingCondition: data['existing_condition'],
       familyHistory: data['family_history'],
       smoker: data['smoker'],
@@ -25,7 +28,8 @@ class Assestment {
 
   toMap() => {
         'age': age,
-        'job_description': jobDescription,
+        'gender': gender,
+        'job_title': jobTitle,
         'existing_condition': existingCondition,
         'family_history': familyHistory,
         'smoker': smoker,

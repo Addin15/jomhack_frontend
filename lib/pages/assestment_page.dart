@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:jomhack/models/assestment.dart';
@@ -8,7 +10,12 @@ import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
 class AssestmentPage extends StatefulWidget {
-  const AssestmentPage({super.key});
+  const AssestmentPage({
+    super.key,
+    this.assestment,
+  });
+
+  final Assestment? assestment;
 
   @override
   State<AssestmentPage> createState() => _AssestmentPageState();
@@ -32,6 +39,24 @@ class _AssestmentPageState extends State<AssestmentPage> {
   bool? married = false;
 
   bool isSaving = false;
+
+  String gender = 'Male';
+
+  @override
+  void initState() {
+    if (widget.assestment != null) {
+      _ageController.text = widget.assestment!.age.toString();
+      gender = widget.assestment!.gender ?? 'Male';
+      _jobController.text = widget.assestment!.jobTitle.toString();
+      _conditionController.text =
+          widget.assestment!.existingCondition.toString();
+      _familyHistoryController.text =
+          widget.assestment!.familyHistory.toString();
+      smoker = widget.assestment!.smoker;
+      married = widget.assestment!.married;
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -63,6 +88,27 @@ class _AssestmentPageState extends State<AssestmentPage> {
                     },
                   ),
                   SizedBox(height: 1.h),
+                  DropdownButtonFormField(
+                    value: gender,
+                    items: const [
+                      DropdownMenuItem(
+                        child: Text('Male'),
+                        value: 'Male',
+                      ),
+                      DropdownMenuItem(
+                        child: Text('Female'),
+                        value: 'Female',
+                      ),
+                    ],
+                    onChanged: (value) {
+                      if (value != null) {
+                        setState(() {
+                          gender = value;
+                        });
+                      }
+                    },
+                  ),
+                  SizedBox(height: 1.h),
                   RadioListTile(
                     title: const Text('Smoker'),
                     value: true,
@@ -89,9 +135,9 @@ class _AssestmentPageState extends State<AssestmentPage> {
                   customTextFormField(
                     controller: _jobController,
                     focusNode: _jobFocus,
-                    hintText: 'Job Description',
+                    hintText: 'Job Title',
                     validator: (text) => text == null || text.isEmpty
-                        ? 'Insert job description'
+                        ? 'Insert job title'
                         : null,
                   ),
                   SizedBox(height: 1.h),
@@ -146,7 +192,8 @@ class _AssestmentPageState extends State<AssestmentPage> {
                         await auth.submitAssestment(
                             assestment: Assestment(
                           age: int.parse(_ageController.text),
-                          jobDescription: _jobController.text,
+                          gender: gender,
+                          jobTitle: _jobController.text,
                           existingCondition: _conditionController.text,
                           familyHistory: _familyHistoryController.text,
                           smoker: smoker,
@@ -159,6 +206,20 @@ class _AssestmentPageState extends State<AssestmentPage> {
                       });
                     },
                   ),
+                  widget.assestment != null
+                      ? const SizedBox.shrink()
+                      : Column(
+                          children: [
+                            SizedBox(height: 1.h),
+                            customTextButton(
+                              label: 'Logout',
+                              backgroundColor: AppColor.tertiary,
+                              onPressed: () {
+                                auth.logout();
+                              },
+                            ),
+                          ],
+                        ),
                 ],
               ),
             ),
