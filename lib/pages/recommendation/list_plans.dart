@@ -60,7 +60,7 @@ class _ListPlansState extends State<ListPlans> {
                             ),
                             child: Image.network(
                               plan.provider!.logo.toString(),
-                              fit: BoxFit.fitHeight,
+                              fit: BoxFit.contain,
                             ),
                           ),
                         ),
@@ -73,15 +73,31 @@ class _ListPlansState extends State<ListPlans> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                plan.name.toString(),
-                                maxLines: 1,
-                                style: TextStyle(
-                                  fontSize: 12.sp,
-                                  color: AppColor.tertiary,
-                                  fontWeight: FontWeight.w700,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      plan.name.toString(),
+                                      maxLines: 1,
+                                      style: TextStyle(
+                                        fontSize: 12.sp,
+                                        color: AppColor.tertiary,
+                                        fontWeight: FontWeight.w700,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ),
+                                  ),
+                                  Text(
+                                    'RM${plan.price!.toStringAsFixed(2)}',
+                                    maxLines: 1,
+                                    style: TextStyle(
+                                      fontSize: 12.sp,
+                                      color: AppColor.tertiary,
+                                      fontWeight: FontWeight.w700,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ),
+                                ],
                               ),
                               SizedBox(height: 1.h),
                               Container(

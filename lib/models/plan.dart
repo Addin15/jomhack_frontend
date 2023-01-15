@@ -6,6 +6,7 @@ class PlanModel {
   String? about;
   String? category;
   ProviderModel? provider;
+  double? price;
 
   PlanModel({
     this.id,
@@ -13,13 +14,18 @@ class PlanModel {
     this.about,
     this.category,
     this.provider,
+    this.price,
   });
 
-  factory PlanModel.fromMap(Map<String, dynamic> data) => PlanModel(
-        id: data['id'],
-        name: data['name'],
-        about: data['about'],
-        category: data['category'],
-        provider: ProviderModel.fromMap(data['provider']),
-      );
+  factory PlanModel.fromMap(Map<String, dynamic> data, int tier) => PlanModel(
+      id: data['id'],
+      name: data['name'],
+      about: data['about'],
+      category: data['category'],
+      provider: ProviderModel.fromMap(data['provider']),
+      price: tier == 1
+          ? data['tier_one_price']
+          : tier == 2
+              ? data['tier_two_price']
+              : data['tier_three_price']);
 }

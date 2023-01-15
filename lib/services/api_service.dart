@@ -8,6 +8,7 @@ import 'package:jomhack/config/api.dart';
 import 'package:jomhack/config/headers.dart';
 import 'package:jomhack/models/news.dart';
 import 'package:jomhack/models/plan.dart';
+import 'package:jomhack/services/auth_service.dart';
 
 class APIService {
   static const FlutterSecureStorage _storage = FlutterSecureStorage();
@@ -27,8 +28,11 @@ class APIService {
         if (response.statusCode == 200) {
           Map data = jsonDecode(response.body);
 
-          List<PlanModel> plans =
-              (data['plans'] as List).map((e) => PlanModel.fromMap(e)).toList();
+          int tier = data['tier'];
+
+          List<PlanModel> plans = (data['plans'] as List)
+              .map((e) => PlanModel.fromMap(e, tier))
+              .toList();
 
           return plans;
         }
@@ -56,10 +60,13 @@ class APIService {
         log(response.body.toString());
 
         if (response.statusCode == 200) {
-          List data = jsonDecode(response.body);
+          Map data = jsonDecode(response.body);
 
-          List<PlanModel> plans =
-              data.map((e) => PlanModel.fromMap(e)).toList();
+          int tier = data['tier'];
+
+          List<PlanModel> plans = (data['plans'] as List)
+              .map((e) => PlanModel.fromMap(e, tier))
+              .toList();
 
           return plans;
         }

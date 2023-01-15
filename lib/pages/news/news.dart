@@ -80,7 +80,7 @@ class _NewsState extends State<News> with AutomaticKeepAliveClientMixin {
                                     borderRadius: BorderRadius.circular(5.sp),
                                   ),
                                   child: Container(
-                                    height: 17.h,
+                                    height: 20.h,
                                     padding: EdgeInsets.symmetric(
                                         horizontal: 2.w, vertical: 1.h),
                                     decoration: BoxDecoration(
